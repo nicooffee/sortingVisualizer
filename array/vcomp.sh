@@ -1,0 +1,1 @@
+gcc test.c array.c -ggdb3 && valgrind --leak-check=full ./a.out;

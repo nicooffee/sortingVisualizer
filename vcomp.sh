@@ -1,0 +1,1 @@
+gcc sorting.c array/array.c -pthread -lncurses -ggdb3 && valgrind --leak-check=full ./a.out > log.txt 2>&1;

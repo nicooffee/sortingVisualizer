@@ -1,0 +1,39 @@
+==971== Memcheck, a memory error detector
+==971== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==971== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==971== Command: ./a.out
+==971== 
+==971== error calling PR_SET_PTRACER, vgdb might block
+[?1049h[1;24r(B[m[4l[?7h[39;49m[?25l[39;49m[37m[40m[H[2J(0[0m[37m[47ml(B[0m[37m[47m******************************************************************************(0[0m[37m[47mk(B(B[m[39;49m[37m[40m[2;1H(0[0m[37m[47m(B[0m[37m[47m*[80G*[3;1H*[80G*[4;1H*[80G*[5;1H*[80G*[6;1H*[80G*[7;1H*[80G*[8;1H*[80G*[9;1H*[80G*[10;1H*[80G*[11;1H*[80G*[12;1H*[80G*[13;1H*[80G*[14;1H*[80G*[15;1H*[80G*[16;1H*[80G*[17;1H*[80G*[18;1H*[80G*[19;1H*[80G*[20;1H********************************************************************************[21;1H*(B[m[39;49m[37m[40mC:[21;18H76[80G[37m[47m*[22;1H*(B[m[39;49m[37m[40mSWAP:[22;19H0[80G[37m[47m*[23;1H*(B[m[39;49m[37m[40m<:[23;19H0[80G[37m[47m*[24;1H(0[0m[37m[47mm(B[0m[37m[47m******************************************************************************[?7l(0[0m[37m[47mj[?7h(B(B[m[39;49m[37m[40m[23;20H(0[0m[37m[47m(B(B[m[39;49m[37m[40m[39;49m[37m[40m
+[K[24;1H[?12l[?25h[?1049l[?1l>==971== 
+==971== HEAP SUMMARY:
+==971==     in use at exit: 73,228 bytes in 189 blocks
+==971==   total heap usage: 207 allocs, 18 frees, 79,986 bytes allocated
+==971== 
+==971== 272 bytes in 1 blocks are possibly lost in loss record 24 of 45
+==971==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==971==    by 0x40138B4: allocate_dtv (dl-tls.c:322)
+==971==    by 0x40138B4: _dl_allocate_tls (dl-tls.c:539)
+==971==    by 0x528D26E: allocate_stack (allocatestack.c:588)
+==971==    by 0x528D26E: pthread_create@@GLIBC_2.2.5 (pthread_create.c:539)
+==971==    by 0x40126F: main (sorting.c:71)
+==971== 
+==971== 272 bytes in 1 blocks are possibly lost in loss record 25 of 45
+==971==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==971==    by 0x40138B4: allocate_dtv (dl-tls.c:322)
+==971==    by 0x40138B4: _dl_allocate_tls (dl-tls.c:539)
+==971==    by 0x528D26E: allocate_stack (allocatestack.c:588)
+==971==    by 0x528D26E: pthread_create@@GLIBC_2.2.5 (pthread_create.c:539)
+==971==    by 0x40128C: main (sorting.c:72)
+==971== 
+==971== LEAK SUMMARY:
+==971==    definitely lost: 0 bytes in 0 blocks
+==971==    indirectly lost: 0 bytes in 0 blocks
+==971==      possibly lost: 544 bytes in 2 blocks
+==971==    still reachable: 72,684 bytes in 187 blocks
+==971==         suppressed: 0 bytes in 0 blocks
+==971== Reachable blocks (those to which a pointer was found) are not shown.
+==971== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==971== 
+==971== For counts of detected and suppressed errors, rerun with: -v
+==971== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
