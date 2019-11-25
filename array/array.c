@@ -32,7 +32,8 @@ void *array_get(Array A,int index){
 
 void array_add(Array A, void *elem){
     if(A->capacity==A->length) array_new_capacity(A,A->capacity*2);
-    A->array[A->length++] = elem;
+    A->array[A->length] = elem;
+    A->length++;
     return;
 }
 
