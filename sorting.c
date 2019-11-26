@@ -12,7 +12,7 @@
  *  - mergeInit (mergesort)
 */
 #define ALGORITMO &bubblesort
-#define DELAY 300
+#define DELAY 30000
 
 #define ROJO        1
 #define VERDE       2
@@ -201,8 +201,8 @@ void *bubblesort(void *m){
             if(!comp(array_get(A,j),array_get(A,j+1)))
                 (swap++,array_swap(A,j,j+1));
             pthread_cond_signal(&cond_swap);
-            posI = i;
-            posJ = j;
+            posI = j;
+            posJ = j+1;
             pthread_mutex_unlock(&mutex_array);
             usleep(DELAY);
         }
