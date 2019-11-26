@@ -6,12 +6,13 @@
 #include <unistd.h>
 #include "array/array.h"
 /** ALGORTIMOS
+ *  - selectionsort
  *  - bubblesort
  *  - quickInit (quicksort)
  *  - mergeInit (mergesort)
 */
-#define ALGORITMO &quickInit
-#define DELAY 30000
+#define ALGORITMO &bubblesort
+#define DELAY 300
 
 #define ROJO        1
 #define VERDE       2
@@ -43,6 +44,7 @@ void *print_array(void *m);
 void *print_data(void *m);
 int comp_int(void *a,void *b);
 
+void *selectionsort(void *m);
 void *bubblesort(void *m);
 
 int partition(Array A,int min,int max,int (*comp)(void *,void *));
@@ -169,8 +171,8 @@ int comp_int(void *a,void *b){
 
 
 
-/*************************BUBBLE*************************/
-void *bubblesort(void *m){
+/*************************SELECTION*************************/
+void *selectionsort(void *m){
     register int i,j;
     Array A = ((struct Message *) m)->A;
     int (*comp)(void *,void *) = ((struct Message *) m)->func;
@@ -180,6 +182,24 @@ void *bubblesort(void *m){
             compar++;
             if(comp(array_get(A,j),array_get(A,i)))
                 (swap++,array_swap(A,i,j));
+            pthread_cond_signal(&cond_swap);
+            posI = i;
+            posJ = j;
+            pthread_mutex_unlock(&mutex_array);
+            usleep(DELAY);
+        }
+}
+/*************************BUBBLE*************************/
+void *bubblesort(void *m){
+    register int i,j;
+    Array A = ((struct Message *) m)->A;
+    int (*comp)(void *,void *) = ((struct Message *) m)->func;
+    for(i=0;i<array_length(A)-1 && ejec_flag;i++)
+        for(j=0;j<array_length(A)-i-1  && ejec_flag;j++){
+            pthread_mutex_lock(&mutex_array);
+            compar++;
+            if(!comp(array_get(A,j),array_get(A,j+1)))
+                (swap++,array_swap(A,j,j+1));
             pthread_cond_signal(&cond_swap);
             posI = i;
             posJ = j;
