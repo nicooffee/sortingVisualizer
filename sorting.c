@@ -10,7 +10,7 @@
  *  - quickInit (quicksort)
  *  - mergeInit (mergesort)
 */
-#define ALGORITMO &mergeInit
+#define ALGORITMO &quickInit
 #define DELAY 30000
 
 #define ROJO        1
@@ -110,8 +110,8 @@ void *print_array(void *m){
         pthread_mutex_lock(&mutex_screen);
         pthread_cond_wait(&cond_swap,&mutex_screen);
         pthread_mutex_lock(&mutex_array);
-        wclear(w);
         for(i=0;i<array_length(A);i++){
+            mvwvline(w,0,i,' ',maxy);
             wattron(w,COLOR_PAIR(BLANCO));
             mvwprintw(w,maxy-1-*((int *)array_get(A,i)),i,"*");
             wattroff(w,COLOR_PAIR(BLANCO));
@@ -280,7 +280,7 @@ void merge(Array A,int inicio, int mitad,int final,int (*comp)(void *,void *)){
 void mergesort(Array A,int inicio,int final,int (*comp)(void *,void *)){
     int mitad = (inicio+final)/2;
     int i = 0;
-    if(inicio == final) return;
+    if(inicio == final || ejec_flag==0) return;
     else if (inicio==final-1){
         if(!comp(array_get(A,inicio),array_get(A,final)))
             array_swap(A,inicio,final);
